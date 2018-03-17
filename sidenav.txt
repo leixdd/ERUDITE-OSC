@@ -1,0 +1,67 @@
+side nav code
+
+.logo-eru{
+    width: 25%;
+}
+
+.sidenav-c{
+    padding-top: 30px; 
+    overflow-x: hidden;   
+}
+.nav_title{
+    background: #34A853;
+    width: 100%;
+    padding-bottom: 2%;
+}
+
+.nav_title a {
+    text-decoration: none;
+    font-size: 25px;
+    color: #f1f1f1;
+    display: block;
+    transition: 0.3s
+}
+
+
+.sidenav-c .c-menu{
+}
+
+
+.sidenav-c .c-menu a{
+    color:  rgb(14, 194, 62)
+}
+/* The navigation menu links */
+.sidenav-c .c-menu .accop a {
+    padding: 8px 8px 8px 44px;
+    text-decoration: none;
+    font-size: 16px;
+    color: white;
+    display: block;
+    transition: 0.3s
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav-c .c-menu .accop a:hover, .offcanvas a:focus{
+    color: rgb(14, 194, 62);
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav-c .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav-c {padding-top: 15px;}
+    .sidenav-c .c-menu .accop a {font-size: 18px;}
+}
