@@ -1,0 +1,89 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "client"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "style.css",
+        "../src/assets/css/font-awesome.min.css",
+        "../src/assets/vendors/bootstrap-daterangepicker/daterangepicker.css",
+        "../src/assets/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css",
+        "../src/assets/summernote/dist/summernote.css",
+        "../src/assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css"
+      ],
+      "scripts": [
+                  "../src/assets/js/jquery.min.js",
+                  "../src/assets/js/bootstrap.min.js",
+                  "../src/assets/js/popper.js",
+                  "../src/assets/vendors/moment/min/moment.min.js",
+                  "../src/assets/vendors/bootstrap-daterangepicker/daterangepicker.js",
+                  "../src/assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js",
+                  "../src/assets/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js",
+                  "../src/assets/summernote/dist/summernote.js",
+                  "../src/assets/plugins/bootstrap-select/js/bootstrap-select.js",
+                  "../src/assets/plugins/jquery-slimscroll/jquery.slimscroll.js",
+                  "../src/assets/plugins/node-waves/waves.js",
+                  "../src/assets/plugins/bootstrap-notify/bootstrap-notify.js",
+                  "../src/assets/js/override.js",
+                  "../src/assets/js/demo.js",
+                  "../src/assets/plugins/jquery-countto/jquery.countTo.js",
+                  "../src/assets/plugins/jquery-datatable/jquery.dataTables.js",
+                  "../src/assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js",
+                  "../src/assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js",
+                  "../src/assets/plugins/jquery-datatable/extensions/export/buttons.flash.min.js",
+                  "../src/assets/plugins/jquery-datatable/extensions/export/jszip.min.js",
+                  "../src/assets/plugins/jquery-datatable/extensions/export/pdfmake.min.js",
+                  "../src/assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js",
+                  "../src/assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js",
+                  "../src/assets/plugins/jquery-datatable/extensions/export/buttons.print.min.js"],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "component": {}
+  }
+}

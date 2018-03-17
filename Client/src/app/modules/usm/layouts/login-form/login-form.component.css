@@ -1,0 +1,6 @@
+.bdy{
+    background-image: url('/assets/images/bg.png') !important;
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    height: 100vh;   
+}

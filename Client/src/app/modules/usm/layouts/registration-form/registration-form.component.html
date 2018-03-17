@@ -1,0 +1,79 @@
+<div class="row">
+  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+    <div class="card">
+      <div class="header bg-green">Registration</div>
+      <div class="body">
+          <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="message">
+              <div class="alert alert-danger" style="color: white !important;">
+                {{message}}
+              </div>
+            </div>
+  
+            <form (submit)="onRegister()" id="regForm">
+              
+  
+               <div class="form-group">
+                <label for="uname">Username:</label>
+                <div class="form-line">
+                    <input required type="text" class="form-control" id="uname" placeholder="Username" name="name" [(ngModel)]="username">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="pwd">Password:</label>
+                <div class="form-line">
+                    <input required type="password" class="form-control" id="pwd" placeholder="Password" name="password" [(ngModel)]="password">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="confrimpwd">Confirm Password:</label>
+                <div class="form-line">
+                    <input required type="password" class="form-control" id="confirmpwd" placeholder="Confirm Password" name="confirm_password" [(ngModel)]="confirm_password">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                  <label for="email">Email:</label>
+                  <div class="form-line">
+                      <input required type="email" class="form-control" id="email" placeholder="Email Address" name="email" [(ngModel)]="email">
+                  </div>
+              </div>
+  
+              
+              <div class="form-group">
+                <label for="firstname">Firstname:</label>
+                <div class="form-line">
+                    <input required type="text" class="form-control" id="firstname" placeholder="Firstname" name="firstname" [(ngModel)]="firstname">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="lastname">Lastname:</label>
+                <div class="form-line">
+                    <input required type="text" class="form-control" id="lastname" placeholder="Lastname" name="lastname" [(ngModel)]="lastname">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="middlename">Middlename:</label>
+                <div class="form-line">
+                    <input required type="text" class="form-control" id="middlename" placeholder="Middlename" name="middlename" [(ngModel)]="middlename">
+                </div>
+              </div>
+
+              <hr/>
+              
+              <div class="form-group">
+                <label class="control-label">Your Image</label>
+                <input type="file" (change) = "fileChange($event)" required/>
+              </div>
+
+               <button type="submit" class="btn btn-success">Submit</button>
+            
+            </form>
+      </div>
+    </div>
+  </div>
+</div>
+

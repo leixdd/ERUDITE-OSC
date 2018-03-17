@@ -1,0 +1,113 @@
+<app-dash-side-nav></app-dash-side-nav>
+<app-dash-nav></app-dash-nav>
+
+
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+					<div class="alert alert-{{type}} text-white" *ngIf="message">{{message}}</div>
+			</div>
+			<div class="col-sm-4"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-success">
+					<div class="panel-heading">Account Settings</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6 col-sm-6 col-lg-6" *ngFor="let inpp of uKeys(user)">
+								<div class="panel panel-default">
+										<div class="panel-heading">{{inpp}}</div>
+										<div class="panel-body">
+											<div *ngIf="checkObject(user[inpp])">
+												<div *ngFor="let inp of uKeys(user[inpp])">
+
+													<div *ngIf="!checkArray(user[inpp][inp]); else arraylist"  class="form-group">
+														<label for="{{inp}}">{{inp.toUpperCase()}}</label>
+														<input type="text" class="form-control" id="models{{inpp[inp]}}" name="{{inp}}" required [(ngModel)]="models[inpp][inp]"/>
+													</div>
+													<ng-template #arraylist>
+														<div class="form-group">
+															<div class="panel panel-default">
+																<div class="panel-heading">
+																	<div class="row">
+																			<div class="col-lg-8 col-md-8 col-sm-8 ">
+																				<select class="form-control" id="combobox" placeholder="Add new Skill" [(ngModel)]="dummySkill" name="skill">
+																						
+																						<option>Big Data Analysis-Algorithms</option>
+																						<option>Big Data Analysis-Analytical Skills</option>
+																						<option>Big Data Analysis-Big Data</option>
+																						<option>Big Data Analysis-Calculating</option>
+																						<option>Big Data Analysis-Compiling Statistics</option>
+																						<option>Big Data Analysis-Data Analytics</option>
+																						<option>Big Data Analysis-Data Mining</option>
+																						<option>Big Data Analysis-Database Design</option>
+																						<option>Big Data Analysis-Database Management</option>
+																						<option>Big Data Analysis-Documentation</option>
+																						<option>Big Data Analysis-Modeling</option>
+																						<option>Big Data Analysis-Modification</option>
+																						<option>Big Data Analysis-Needs Analysis</option>
+																						<option>Big Data Analysis-Quantitative Research</option>
+																						<option>Big Data Analysis-Quantitative Reports</option>
+																						<option>Big Data Analysis-Statistical Analysis</option>
+																						<option>Coding and Programming-Applications</option>
+																						<option>Coding and Programming-Certifications</option>
+																						<option>Coding and Programming-Coding</option>
+																						<option>Coding and Programming-Computing</option>
+																						<option>Coding and Programming-Configuration</option>
+																						<option>Coding and Programming-Customer Support</option>
+																						<option>Coding and Programming-Debugging</option>
+																						<option>Coding and Programming-Design</option>
+																						<option>Coding and Programming-Development</option>
+																						<option>Coding and Programming-Hardware</option>
+																						<option>Coding and Programming-Implementation</option>
+																						<option>Coding and Programming-Information Technology</option>
+																						<option>Coding and Programming-Infrastructure</option>
+																						<option>Coding and Programming-Languages</option>
+																						<option>Coding and Programming-Maintenance</option>
+																						<option>Coding and Programming-Network Architecture</option>
+																						<option>Coding and Programming-Network Security</option>
+																						<option>Coding and Programming-Networking</option>
+																						<option>Coding and Programming-New Technologies</option>
+																						<option>Coding and Programming-Operating Systems</option>
+																				</select>
+																			</div>
+																			<div class="col-lg-2 col-md-2 col-sm-2 "><button class="btn bg-success text-white" (click)="addnewskill()">Add new</button></div>
+																	</div>
+																</div>
+																<div class="panel-body">
+																	<ul class="list-group">
+																		<li class="list-group-item" *ngFor="let item of user[inpp][inp]">
+																			<div class="row">
+																					<div class="col-lg-8 col-md-8 col-sm-8">
+																									{{item}}
+																					</div>
+																					<div class="col-lg-4 col-md-4 col-sm-4 text-right">
+																									<a (click)="removeSkill(item)" class="btn btn-sm btn-success">x</a>
+																					</div>
+																			</div>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+														</div>
+													</ng-template>
+
+												</div>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-footer text-right">
+							<button class="btn bg-primary text-white" (click)="onUpdate()">Update</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</section>

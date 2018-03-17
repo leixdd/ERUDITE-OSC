@@ -1,0 +1,33 @@
+.nav-styling{
+    
+    background: #EDEDED;
+    border-bottom: 1px solid #D9DEE4;
+    margin-bottom: 10px;
+    width: 100%;
+
+}
+
+.nav-styling a:hover{
+    color: green !important;
+}
+
+.logo-eru{
+    width: 10%;
+}
+
+.dropdown-menu a:hover{
+    color: green;
+}
+
+.dropdown-toggle::after{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: 0 solid;
+    border-right: 0 solid transparent;
+    border-bottom: 0;
+    border-left: 0 solid transparent;
+}

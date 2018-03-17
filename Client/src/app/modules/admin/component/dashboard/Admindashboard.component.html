@@ -1,0 +1,150 @@
+<app-dash-nav></app-dash-nav>
+<app-dash-side-nav></app-dash-side-nav>
+
+<section class="content">
+  <div class="container-fluid">
+
+      <div class="row clearfix">
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box bg-pink hover-expand-effect">
+                  <div class="icon">
+                      <i class="material-icons">playlist_add_check</i>
+                  </div>
+                  <div class="content">
+                      <div class="text">TASKS </div>
+                      <div class="number count-to" data-from="0" *ngIf="analytics" [attr.data-to]="analytics.task_count" data-speed="1500" data-fresh-interval="20"></div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box bg-cyan hover-expand-effect">
+                  <div class="icon">
+                      <i class="material-icons">help</i>
+                  </div>
+                  <div class="content">
+                      <div class="text">PROJECTS</div>
+                      <div class="number count-to" data-from="0" *ngIf="analytics.project_count" [attr.data-to]="analytics.project_count" data-speed="1000" data-fresh-interval="20"></div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box bg-green hover-expand-effect">
+                  <div class="icon">
+                      <i class="material-icons">flag</i>
+                  </div>
+                  <div class="content">
+                      <div class="text">MILESTONES</div>
+                      <div class="number count-to" data-from="0" *ngIf="analytics.milestone_count" [attr.data-to]="analytics.milestone_count" data-speed="1000" data-fresh-interval="20"></div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box bg-orange hover-expand-effect">
+                  <div class="icon">
+                      <i class="material-icons">person</i>
+                  </div>
+                  <div class="content">
+                      <div class="text">USERS</div>
+                      <div class="number count-to" data-from="0" *ngIf="analytics.user_count" [attr.data-to]="analytics.user_count" data-speed="1000" data-fresh-interval="20"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="row clearfix">
+          <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12">
+              <div class="card">
+                    <div class="header">
+                        <h2>
+                            Core Data Users
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Username</th>
+                                        <th>Full name</th>
+                                        <th>Email</th>
+                                        <th>Join Date</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th>Username</th>
+                                        <th>Full name</th>
+                                        <th>Email</th>
+                                        <th>Join Date</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <tr *ngFor="let u of Keys(CDU)">
+                                        <td><img src="../assets/uploads/avatars/{{ CDU[u]['userDetails']['picture'] }}" class="img-rounded" height="48" width="48" /></td>
+                                        <td>{{ CDU[u]['loginDetails']['username'] }}</td>
+                                        <td>{{ CDU[u]['userDetails']['lastname'] }}, {{ CDU[u]['userDetails']['firstname'] }} {{ CDU[u]['userDetails']['middlename'] }} </td>
+                                        <td>{{ CDU[u]['loginDetails']['email'] }}</td>
+                                        <td>{{ CDU[u]['joinDate'] | date : 'long' }}</td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+              </div>
+          </div>
+
+          <div class="col-lg-6 col-sm-12 col-md-6 col-xs-12">
+            <div class="card">
+                  <div class="header">
+                      <h2>
+                          Core Data Projects
+                      </h2>
+                  </div>
+                  <div class="body">
+                      <div class="table-responsive">
+                          <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                              <thead>
+                                  <tr>
+                                      <th>Project ID</th>
+                                      <th>Project Name</th>
+                                      <th>Project Start</th>
+                                      <th>Project End Date</th>
+                                      <th>Project Owner</th>
+                                  </tr>
+                              </thead>
+                              <tfoot>
+                                  <tr>
+                                    <th>Project ID</th>
+                                    <th>Project Name</th>
+                                    <th>Project Start</th>
+                                    <th>Project End Date</th>
+                                    <th>Project Owner</th>
+                                  </tr>
+                              </tfoot>
+                              <tbody>
+                                  <tr *ngFor="let u of convertKey(CDP)">
+                                      <td>{{ CDP[u]['_id'] }}</td>
+                                      <td>{{ CDP[u]['name'] }}</td>
+                                      <td>{{ CDP[u]['startDate'] | date : 'short'}} </td>
+                                      <td>{{ CDP[u]['endDate'] | date : 'short' }}</td>
+                                      <td>{{ CDP[u]['owner'] }}</td>
+                                      
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+            </div>
+        </div>
+        
+      </div>
+
+
+
+      
+  </div>
+</section>

@@ -1,0 +1,63 @@
+<app-dash-side-nav></app-dash-side-nav>
+<app-dash-nav></app-dash-nav>
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-md-offset-2">
+          <div class="card">
+            <div class="header bg-green">My Projects</div>
+            <div class="body table-responsive">
+                <table class="table table-condensed table-responsive table-bordered table-hover table-striped tblProjects" data-toggle="project-tooltip" title="Click the row of the project to open" *ngIf="!checkObj(Projects); else NoPro">
+                    <thead>
+                      <tr>
+                        <td>Project Name</td>
+                        <td>Owner</td>
+                        <td>Project Progress</td>
+                        <td>Start Date</td>
+                        <td>End Date</td>
+                        <td>Audience</td>
+                        <td>Created At</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of convertKey(Projects)" (click)="projectDash(Projects[item]['_id'])" >
+                          <td>{{Projects[item]['name']}}</td>
+                          <td>{{Projects[item]['owner']['userDetails']['firstname'] }}</td>
+                          <td *ngIf="!checkObj(Projects[item]['milestones']); else projectprog">
+                              Current Progress : {{ getProgress(Projects[item]['milestones']) }} % &nbsp;
+                              <div class="progress progress_sm">
+                                  <span class="progress-bar bg-green" role="progressbar" [attr.data-transitiongoal]="getProgress(Projects[item]['milestones']['tasks'])" [attr.aria-valuenow]="getProgress(Projects[item]['milestones'])" [style.width.%]="getProgress(Projects[item]['milestones'])"></span>
+                              </div>
+                          </td>
+                          <ng-template #projectprog>
+                            <td>
+                              Current Progress : 0%
+                              <div class="progress progress_sm">
+                                  <span class="progress-bar bg-green" role="progressbar" data-transitiongoal="0" aria-valuenow="0" style="width: 0%"></span>
+                              </div>
+                            </td>
+                          </ng-template>
+                          <td>{{ convertDate(Projects[item]['startDate']) }}</td>
+                          <td>{{ convertDate(Projects[item]['endDate']) }}</td>
+                          <td><span *ngIf="Projects[item]['privacy'] == 0" >Public</span></td>
+                          <td>{{ convertDate(Projects[item]['created_at']) }}</td>
+                        </tr>
+                    </tbody>
+                  </table>
+    
+                  <ng-template #NoPro>
+                    <div class="row text-center">
+                      <h1><b>You have no projects</b></h1>
+                      <h1>Create New Project : <a class="btn btn-primary" [routerLink]="['/project/init']">Here</a></h1>
+                    </div>
+                  </ng-template>
+            </div>
+          </div>
+          
+    
+            
+        </div>
+    
+      </div>
+</section>

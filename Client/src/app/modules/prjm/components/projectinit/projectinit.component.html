@@ -1,0 +1,133 @@
+<app-dash-side-nav></app-dash-side-nav>
+<app-dash-nav></app-dash-nav>
+
+<section class="content">
+
+  <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-lg-8 col-sm-8">
+    
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4">
+
+                <div class="card">
+                    <div class="header bg-green">Start Collaboration</div>
+                    <div class="body">
+                            <form>
+    
+                                    <div class="form-group">
+                                        <label class="control-label">Project Name</label>
+        
+                                        <div class="form-line">
+                                            <input class="form-control" type="text" [(ngModel)] = "projectname" name="projectname" />
+                                        </div>
+                                    </div>
+        
+                                    <div class="form-group">
+                                        <div class="control-label">Start Date</div>
+                                        <div class="form-line">
+                                            <input type='text' class="form-control" readonly id="projectSDate"/>
+                                        </div>
+                                    </div>
+        
+                                    <div class="form-group">
+                                        <div class="control-label">End Date</div>
+                                        <div class="form-line">
+                                            <input type='text' id="endDate" class="form-control" readonly/>
+                                        </div>
+                                    </div>
+        
+        
+                                    <div class="form-group">
+                                        <div class="control-label">Description</div>
+                                        <div class="form-line">
+                                            <textarea class="form-control" [(ngModel)] = "projectdesc" name="projectdesc" ></textarea> 
+                                        </div>
+                                    </div>
+        
+                                    <div class="form-group">
+                                        <div class="control-label">Status</div>
+                                        <div class="form-line">
+                                                <select class="form-control" [(ngModel)] = "projectPrivacy" name="projectPrivacy" >
+                                                    <option value="0">Public</option>
+                                                    <option value="1">Private</option>
+                                                </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                        <div class="col-lg-8 col-md-8 col-sm-8 ">
+                                                            <select class="form-control" placeholder="Add new Type" [(ngModel)]="dummySkill" name="skill">
+                                                                    
+                                                                    <option>Big Data Analysis-Algorithms</option>
+                                                                    <option>Big Data Analysis-Analytical Skills</option>
+                                                                    <option>Big Data Analysis-Big Data</option>
+                                                                    <option>Big Data Analysis-Calculating</option>
+                                                                    <option>Big Data Analysis-Compiling Statistics</option>
+                                                                    <option>Big Data Analysis-Data Analytics</option>
+                                                                    <option>Big Data Analysis-Data Mining</option>
+                                                                    <option>Big Data Analysis-Database Design</option>
+                                                                    <option>Big Data Analysis-Database Management</option>
+                                                                    <option>Big Data Analysis-Documentation</option>
+                                                                    <option>Big Data Analysis-Modeling</option>
+                                                                    <option>Big Data Analysis-Modification</option>
+                                                                    <option>Big Data Analysis-Needs Analysis</option>
+                                                                    <option>Big Data Analysis-Quantitative Research</option>
+                                                                    <option>Big Data Analysis-Quantitative Reports</option>
+                                                                    <option>Big Data Analysis-Statistical Analysis</option>
+                                                                    <option>Coding and Programming-Applications</option>
+                                                                    <option>Coding and Programming-Certifications</option>
+                                                                    <option>Coding and Programming-Coding</option>
+                                                                    <option>Coding and Programming-Computing</option>
+                                                                    <option>Coding and Programming-Configuration</option>
+                                                                    <option>Coding and Programming-Customer Support</option>
+                                                                    <option>Coding and Programming-Debugging</option>
+                                                                    <option>Coding and Programming-Design</option>
+                                                                    <option>Coding and Programming-Development</option>
+                                                                    <option>Coding and Programming-Hardware</option>
+                                                                    <option>Coding and Programming-Implementation</option>
+                                                                    <option>Coding and Programming-Information Technology</option>
+                                                                    <option>Coding and Programming-Infrastructure</option>
+                                                                    <option>Coding and Programming-Languages</option>
+                                                                    <option>Coding and Programming-Maintenance</option>
+                                                                    <option>Coding and Programming-Network Architecture</option>
+                                                                    <option>Coding and Programming-Network Security</option>
+                                                                    <option>Coding and Programming-Networking</option>
+                                                                    <option>Coding and Programming-New Technologies</option>
+                                                                    <option>Coding and Programming-Operating Systems</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-2 col-sm-2 "><button class="btn bg-success text-white" (click)="addnewskill()">Add new</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item" *ngFor="let item of skills">
+                                                        <div class="row">
+                                                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                                                                {{item}}
+                                                                </div>
+                                                                <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+                                                                                <a (click)="removeSkill(item)" class="btn btn-sm btn-success">x</a>
+                                                                </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <div class="form-group text-center">
+                                        <input type="button" value="submit" (click)="onSubmit()" class="form-control btn btn-primary waves-effect"/>
+                                    </div>
+                                </form>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+      </div>
+</section>

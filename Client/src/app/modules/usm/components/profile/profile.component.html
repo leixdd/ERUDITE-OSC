@@ -1,0 +1,136 @@
+<app-dash-side-nav></app-dash-side-nav>
+<app-dash-nav></app-dash-nav>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+        </div>
+
+        <div class="row">
+      
+            <div class="col-lg-4 col-md-4 col-sm-4">
+              
+              <div class="card">
+                <div class="header bg-green text-center" *ngIf="user">
+                    <img src="../assets/uploads/avatars/{{user.picture}}" style="width: 45%; border: 2px solid white" class="img-rounded">
+                    <br>
+                    <br>
+                    <h5>{{ user.firstname }}, {{ user.lastname }}</h5>
+      
+                    <blockquote>Full Stack Web Developer, MEAN, C#, Node.js</blockquote>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><i class="fa fa-briefcase">&nbsp;</i> Freelance Web Developer</li>
+                        <li class="list-group-item"><i class="fa fa-map-marker">&nbsp;</i> Caloocan City, Philippines</li>
+                    </ul>
+      
+                    <div class="ln_solid"></div>
+      
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        Skills
+                      </div>
+                      <div class="panel-body">
+                          <ul class="list-group" *ngIf="user">
+                              <li class="list-group-item" *ngFor="let skill of user.skills">{{skill}}</li>
+                          </ul>
+                      </div>
+                    </div>
+                </div>
+              </div>  
+            
+            </div>
+    
+
+            <div class="col-lg-8 col-md-8 col-sm-8">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            Profile
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                            <li role="presentation" class="active"><a href="#projects" data-toggle="tab">PROJECTS</a></li>
+                            <li role="presentation"><a href="#assignments" data-toggle="tab">ASSIGNMENTS</a></li>
+                            <li role="presentation"><a href="#schedules" data-toggle="tab">SCHEDULES</a></li>
+                        </ul>
+    
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active table-responsive" id="projects">
+                                <table class="table table-condensed table-bordered table-hover table-striped tblProjects" data-toggle="project-tooltip" title="Click the row of the project to open" *ngIf="!checkObj(Projects); else NoPro">
+                                    <thead>
+                                      <tr>
+                                        <td>Project Name</td>
+                                        <td>Owner</td>
+                                        <td>Project Progress</td>
+                                        <td>Start Date</td>
+                                        <td>End Date</td>
+                                        <td>Audience</td>
+                                        <td>Created At</td>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of convertKey(Projects)" (click)="projectDash(Projects[item]['_id'])" >
+                                          <td>{{Projects[item]['name']}}</td>
+                                          <td>{{Projects[item]['owner']['userDetails']['firstname'] }}</td>
+                                          <td *ngIf="!checkObj(Projects[item]['milestones']); else projectprog">
+                                              Current Progress : {{ getProgress(Projects[item]['milestones']) }} % &nbsp;
+                                              <div class="progress progress_sm">
+                                                  <span class="progress-bar bg-green" role="progressbar" [attr.data-transitiongoal]="getProgress(Projects[item]['milestones']['tasks'])" [attr.aria-valuenow]="getProgress(Projects[item]['milestones'])" [style.width.%]="getProgress(Projects[item]['milestones'])"></span>
+                                              </div>
+                                          </td>
+                                          <ng-template #projectprog>
+                                            <td>
+                                              Current Progress : 0%
+                                              <div class="progress progress_sm">
+                                                  <span class="progress-bar bg-green" role="progressbar" data-transitiongoal="0" aria-valuenow="0" style="width: 0%"></span>
+                                              </div>
+                                            </td>
+                                          </ng-template>
+                                          <td>{{ convertDate(Projects[item]['startDate']) }}</td>
+                                          <td>{{ convertDate(Projects[item]['endDate']) }}</td>
+                                          <td><span *ngIf="Projects[item]['privacy'] == 0" >Public</span></td>
+                                          <td>{{ convertDate(Projects[item]['created_at']) }}</td>
+                                        </tr>
+                                    </tbody>
+                                  </table>
+                    
+                                  <ng-template #NoPro>
+                                    <div class="row text-center">
+                                      <h1><b>You have no projects</b></h1>
+                                      <h1>Create New Project : <a class="btn btn-primary" href="/project/init">Here</a></h1>
+                                    </div>
+                                  </ng-template>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="assignments">
+                                <b>Profile Content</b>
+                                <p>
+                                    Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                                    Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                    pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                    sadipscing mel.
+                                </p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="messages">
+                                <b>Message Content</b>
+                                <p>
+                                    Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                                    Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                    pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                    sadipscing mel.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+      
+          </div>
+    </div>
+</section>

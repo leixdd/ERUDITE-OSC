@@ -1,0 +1,305 @@
+<app-project-side-nav></app-project-side-nav>
+<app-project-nav></app-project-nav>
+
+
+
+<section class="content" *ngIf="Milestone">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12" *ngIf="Milestone">
+                <div class="panel card-container-navyBlue">
+                    <div class="panel-heading">
+                      Milestone Details <span class="float: right"><a  *ngIf="isOwner()" class="btn btn-md btn-success" data-toggle="modal" data-target="#NewTasksModal" >New Task</a></span><br><br>
+                      <table class="table table-condensed table-responsive" style="font-size: 15pt">
+                          <tr>
+                            <td>Milestone Name : <b>{{Milestone.milestone_name}}</b></td>
+                            <td>Start Date : <b>{{ convertDate(Milestone.milestone_startDate) }}</b></td>
+                            <td>End Date : <b>{{ convertDate(Milestone.milestone_endDate) }}</b></td>
+                            <td *ngIf="datediff(Milestone.milestone_endDate) > 0; else Today"> {{ datediff(Milestone.milestone_endDate) }} Day/s Remaining</td>
+                            <ng-template #Today>
+                              <td>The Milestone is on its due</td>
+                            </ng-template>
+                            <td>Progress : <b>{{ getProgress(Tasks) }}%</b></td>
+                          </tr>
+                      </table>
+                    </div>
+                  </div>
+            </div>
+    
+    
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="card">
+                  <div class="header  bg-indigo">Tasks</div>
+                  <div class="body">
+                    <div class="row">
+
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                        <!-- Start -->
+  
+
+                        <div class="row" *ngIf="!checkObj(Tasks); else emptyTasks">
+                            <div class="list-group col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                <div class="info-box bg-{{completed(Tasks[task]['isCompleted'])}} hover-zoom-effect list-group-item" *ngFor="let task of convertKey(Tasks)" (click) = "getTaskInfo(task)">
+                                    <div class="icon">
+                                      <h5>{{ getMonth(Tasks[task]['task_endDate']) }}</h5>
+                                      <h4 class="day">
+                                        {{ getDay(Tasks[task]['task_endDate']) }}
+                                      </h4>
+                                    </div>
+                                    <div class="content">
+                                        <div>{{ Tasks[task]['task_name'] }}</div>
+                                        <div>{{ Tasks[task]['task_desc'].slice(0,10) }}</div>
+                                        <div><b>Assigned To: </b>{{ Tasks[task]['task_assigned']['loginDetails']['username'] }}</div>
+                                    </div>
+                                </div>
+                            </div>             
+                          </div>
+                          <ng-template #emptyTasks>
+                            <div class="row text-center">
+                              <h3>No Tasks</h3>
+                            </div>
+                          </ng-template>
+                          
+                          <!-- End -->
+                      </div>
+                    
+                    </div>
+                  </div>
+                </div>
+            </div>
+      
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+              <div class="row">
+
+                <div class="col-lg-12- col-md-12 col-sm-12 col-xs-12"  *ngIf="isOwner()" style="overflow-y:scroll; max-height: 100vh">
+                  <div class="card">
+                    <div class="header bg-green">Task Submission</div>
+                    <div class="body">
+                        <div class="row" *ngIf="!checkObj(requests); else emptyTasksReq">
+                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12"  role="tablist" >
+                                <div class="card" *ngFor="let task of convertKey(requests)">
+                                  <div class="header bg-green">
+                                      <h4> {{ requests[task]['task_name'] }} |  Submitted on : {{ requests[task]['task_submit_date'] | date: 'long' }}</h4>
+                                  </div>
+                                  <div class="body">
+                                      <p *ngIf="requests[task]['task_submit_comment']">{{ requests[task]['task_submit_comment'] }}</p>
+                                      <br>
+                                      <br>
+                                      <div class="btn-group btn-group-justified">
+
+                                          <a class="btn btn-primary waves-effect" (click) = "downloadAttachment(requests[task]['task_file_attachment'])">Download Attachment</a>
+                                          <a class="btn btn-success waves-effect" (click) = "updateTaskSubmission(requests[task]['_id'], true)" >Approve</a>
+                                          <a class="btn btn-danger waves-effect" (click) = "updateTaskSubmission(requests[task]['_id'], false)">Reject</a>
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>             
+                          </div>
+                          <ng-template #emptyTasksReq>
+                            <div class="row text-center">
+                              <h3>No Submission</h3>
+                            </div>
+                          </ng-template>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12- col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                      <div class="header bg-red">My Tasks</div>
+                      <div class="body">
+                          <div class="row" *ngIf="!checkObj(myTasks); else emptymyTasks">
+                              <div class="panel-group col-lg-12 col-md-12 col-xs-12 col-sm-12" role="tablist" aria-multiselectable="true">
+
+                                <div class="panel panel-{{ taskcolor(myTasks[task]) }}" id="acc_myTask" *ngFor="let task of convertKey(myTasks)">
+                                    <div class="panel-heading" role="tab" id="h_{{myTasks[task]['_id']}}">
+                                        <h4 class="panel-title">
+                                            <a role="button" data-toggle="collapse" data-parent="#acc_myTask" href="#c_{{myTasks[task]['_id']}}" aria-expanded="false">
+                                                {{myTasks[task]['task_name']}}  &nbsp;|&nbsp; <b>Submission: </b>{{myTasks[task]['task_endDate'] | date : 'long'}}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="c_{{myTasks[task]['_id']}}" class="panel-collapse collapse collapse" role="tabpanel">
+                                        <div class="panel-body">
+                                          <ul class="list-group">
+
+                                            <li class="list-group-item">
+                                              <h4 class="list-group-item-heading">Task Name</h4>
+                                              <h5 class="list-group-item-text">{{myTasks[task]['task_name']}}</h5>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                              <h4 class="list-group-item-heading">Task Descripton</h4>
+                                              <h5 class="list-group-item-text">{{myTasks[task]['task_desc']}}</h5>
+                                            </li>
+
+
+                                            <li class="list-group-item">
+                                                <h4 class="list-group-item-heading">Task Start Date</h4>
+                                                <h5 class="list-group-item-text">{{myTasks[task]['task_startDate'] | date : 'short' }}</h5>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <h4 class="list-group-item-heading">Task End Date</h4>
+                                                <h5 class="list-group-item-text">{{myTasks[task]['task_endDate'] | date: 'short' }}</h5>
+                                            </li>
+                                          
+                                            <li class="list-group-item"  *ngIf="!isOwner(); else Owner">
+                                                <button *ngIf="!myTasks[task]['task_send']; else taskWait" class="btn btn-success waves-effect" (click) = "setCur(myTasks[task]['_id'])" data-toggle="modal" data-target="#ComplyModal">Comply to this task</button>
+                                                <ng-template #taskWait>
+                                                  <h4 style="color: green">
+                                                    <span *ngIf="!myTasks[task]['isCompleted']; else isCompleted">Waiting for Approval</span>
+                                                    <ng-template #isCompleted>
+                                                      <span>Congratulations! Your work was approved</span>
+                                                    </ng-template>
+                                                  </h4>
+                                                </ng-template>
+                                            </li>
+
+                                            <ng-template #Owner>
+                                              <li class="list-group-item">
+                                                  <a class="btn btn-success waves-effect" *ngIf="!myTasks[task]['isCompleted']; else Rvoke" (click) = "updateTaskSubmission(myTasks[task]['_id'], true)" >Approve This Task</a>
+                                              </li>
+
+                                              <ng-template #Rvoke>
+                                                  <a class="btn btn-danger waves-effect" (click) = "updateTaskSubmission(myTasks[task]['_id'], false)" >Revoke this task</a>
+                                             
+                                              </ng-template>
+                                            </ng-template>
+
+                                          </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                              </div>             
+                            </div>
+                            <ng-template #emptymyTasks>
+                              <div class="row text-center">
+                                <h3>Sweet! You don't have any tasks.</h3>
+                              </div>
+                            </ng-template>
+                      </div>
+                    </div>
+                </div>
+
+              </div>
+            </div>
+              
+        </div>
+      </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="NewTasksModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">New Task</h4>
+        </div>
+        <div class="modal-body">
+          <form (submit) = "onSubmitTask()">
+
+              <div class="form-group">
+                  <label class="control-label">Task Name</label>
+                  
+                  <div class="form-line">
+                    <input class="form-control" type="text" [(ngModel)] = "taskName" name="taskName" />
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <div class="control-label">Start Date</div>
+                  <div class='form-line'>
+                      <input type='text' class="form-control" readonly id="tasks-projectSDate"/>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <div class="control-label">End Date</div>
+                  <div class='form-line'>
+                      <input type='text' id="tasks-endDate" class="form-control" readonly/>
+                  </div>
+              </div>
+
+
+              <div class="form-group">
+                  <div class="control-label">Description</div>
+                  <div class="form-line">
+                    <textarea class="form-control" [(ngModel)] = "taskDesc" name="taskDesc" ></textarea>
+                  </div>
+              </div>
+  
+              <div class="form-group" *ngIf="Members">
+                <label class="control-label">Assigned To?</label>
+                <div class="form-line">
+                  <select class="form-control" [(ngModel)] = "taskAssigned" name = "taskAssigned">
+                    <option value="{{Members['members'][mem]['user']['_id']}}" *ngFor="let mem of convertKey(Members['members'])">
+                      {{ Members['members'][mem]['user']['loginDetails']['username'] }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              
+              <div class="form-group text-center">
+                  <input type="submit" class="form-control btn btn-primary"/>
+              </div>
+  
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="taskClose">Close</button>
+        </div>
+      </div>
+      
+    </div>
+</div>
+
+<div class="modal fade" id="ComplyModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Comply</h4>
+        </div>
+        <div class="modal-body">
+          <form (submit) = "onComplyTask()">
+
+              <div class="form-group">
+                  <div class="control-label">Comment</div>
+                  <div class="form-line">
+                    <textarea class="form-control" [(ngModel)] = "task_submit_comment" name="task_submit_comment" ></textarea>
+                  </div>
+              </div>
+
+              <hr/>
+              
+              <div class="form-group">
+                <label class="control-label">Your File</label>
+                <input type="file" (change) = "fileChange($event)" required/>
+              </div>
+
+              <div class="form-group text-center">
+                  <input type="submit" class="form-control btn btn-primary"/>
+              </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="ComplyClose">Close</button>
+        </div>
+      </div>
+      
+    </div>
+</div>
+

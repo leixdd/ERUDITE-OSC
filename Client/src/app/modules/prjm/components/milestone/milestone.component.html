@@ -1,0 +1,201 @@
+<app-project-side-nav></app-project-side-nav>
+<app-project-nav></app-project-nav>
+
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 col-sm-8 col-md-8 col-xs-12">
+            <div class="card">
+              <div class="header bg-green">Milestones <span class="float: right"><a *ngIf="RestrictMemberView()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#NewMileStoneModal" >New Milestone</a></span></div>
+              <div class="body table-responsive">
+                  <table class="table table-condensed  table-bordered table-hover table-striped" *ngIf="!checkObj(Milestones); else emptyMiles">
+                    <thead>
+                      <tr>
+                        <td>Milestone Name</td>
+                        <td>Start Date</td>
+                        <td>End Date</td>
+                        <td>Progress</td>
+                        <td>Actions</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let milestone of convertKey(Milestones)" (click) = "viewTasks(Milestones[milestone]['_id'])">                        <td>{{ Milestones[milestone]['milestone_name'] }}</td>
+                        <td>{{ convertDate(Milestones[milestone]['milestone_startDate']) }}</td>
+                        <td>{{ convertDate(Milestones[milestone]['milestone_endDate']) }}</td>
+                        <td>{{ getProgress(Milestones[milestone]['tasks']) }} %</td>
+                        <td>
+                          <a class="btn btn-xs btn-primary" [routerLink] = "['/project/milestone/', Milestones[milestone]['_id'], Query]"><span class="fa fa-eye">&nbsp;</span> View</a> |
+                          &nbsp;<a (click) = "updateMile(Milestones[milestone]['_id'], true)" class="btn btn-xs btn-success" *ngIf="getProgress(Milestones[milestone]['tasks']) == 100"><span class="fa fa-eye">&nbsp;</span> Mark as Complete</a>
+                          <a *ngIf="getProgress(Milestones[milestone]['tasks']) != 100" hidden>{{ updateMile(Milestones[milestone]['_id'], false) }}</a>
+                          &nbsp;<a class="btn btn-xs btn-danger" *ngIf="RestrictMemberView()" (click)="deleteMile(Milestones[milestone]['_id'])"><span class="fa fa-trash">&nbsp;</span> Delete</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <ng-template #emptyMiles>
+                    <div class="row text-center">
+                      <h1>No Milestones</h1>
+                      <h3><i><b>Create a New Milestone</b>, It's a Big Deal!</i></h3>
+                      <small>Each Milestone is a big step to your project</small>
+                    </div>
+                  </ng-template>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngIf="MileID">
+              <div class="card">
+                <div class="header bg-green">Milestone : [{{MileID}}] Tasks <span class="float: right"><a class="btn btn-xs btn-success" data-toggle="modal" data-target="#NewTasksModal" >New Task</a></span></div>
+                <div class="body">
+                  <div class="row" *ngIf="!checkObj(Tasks); else emptyTasks">
+                    <article class="media event col-lg-12 col-md-12 col-xs-12 col-sm-12" style="padding-bottom: 3%;" *ngFor="let task of convertKey(Tasks)" >
+                        <a class="pull-left date" *ngIf="!Tasks[task]['isCompleted']; else checkmark">
+                          <p class="month">{{ getMonth(Tasks[task]['task_endDate']) }}</p>
+                          <p class="day">{{ getDay(Tasks[task]['task_endDate']) }}</p>
+                        </a>
+                        <ng-template #checkmark>
+                            <a class="pull-left date text-center completed">
+                              <span class="fa fa-check-circle" style="font-size: 30pt"></span>
+                            </a>
+                        </ng-template>
+                        <div class="media-body">
+                          <a class="title">{{Tasks[task]['task_name']}}</a>
+                          <p>{{Tasks[task]['task_desc'].slice(0, 20)}}</p>
+                        </div>
+                      </article>
+                  </div>
+                    <ng-template #emptyTasks>
+                      <div class="row text-center">
+                        <h3>No Tasks</h3>
+                      </div>
+                    </ng-template>
+                </div>
+              </div>
+          </div>
+          
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="NewMileStoneModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" id="closeModal">&times;</button>
+          <h4 class="modal-title">New Milestone</h4>
+        </div>
+        <div class="modal-body">
+            <form (submit) = "onSubmit()">
+                <div class="alert alert-danger" role="alert" *ngIf="message">
+                    <button (click)="clearmsg()" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{message}}
+                </div>
+                <div class="form-group">
+
+                  <label class="control-label">Milestone Name</label>
+                  <div class="form-line">
+                      <input class="form-control" type="text" [(ngModel)] = "milestoneName" name="milestoneName" required/>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="control-label">Start Date</div>
+                    <div class="form-line">
+                        <input type='text' class="form-control" id="projectSDate" readonly required/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="control-label">End Date</div>
+                    <div class="form-line">
+                      <input type='text' id="endDate" class="form-control" readonly required/>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="control-label">Description</div>
+                    <div class="form-line">
+                      <textarea class="form-control" [(ngModel)] = "milestoneDesc" name="milestoneDesc" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group text-center">
+                    <input type="submit" class="form-control btn btn-primary waves-effect"/>
+                </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="NewTasksModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">New Task</h4>
+        </div>
+        <div class="modal-body">
+          <form (submit) = "onSubmitTask()">
+              <div class="form-group">
+                  <label class="control-label">Task Name</label>
+                  
+                  <div class="form-line">
+                    <input class="form-control" type="text" [(ngModel)] = "taskName" name="taskName" />
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <div class="control-label">Start Date</div>
+                  <div class='form-line'>
+                      <input type='text' class="form-control" readonly id="tasks-projectSDate"/>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <div class="control-label">End Date</div>
+                  <div class='form-line'>
+                      <input type='text' id="tasks-endDate" class="form-control" readonly/>
+                  </div>
+              </div>
+
+
+              <div class="form-group">
+                  <div class="control-label">Description</div>
+                  <div class="form-line">
+                    <textarea class="form-control" [(ngModel)] = "taskDesc" name="taskDesc" ></textarea>
+                  </div>
+              </div>
+
+
+              <div class="form-group text-center">
+                  <input type="submit" class="form-control btn btn-primary"/>
+              </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>

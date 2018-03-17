@@ -1,0 +1,59 @@
+body{
+    background-color: white !important;
+}
+
+.margin-top-5-percent{
+    margin-top: 5%;
+}
+
+.margin-top-10-percent{
+  margin-top: 10%;
+}
+
+
+.bordered-panel{
+  border-radius: 12px;
+  box-shadow: 8px 6px 10px #5A5655;
+
+}
+/* Smart Wizard Override Gentelella */
+
+  .form_wizard .msgBox {
+    position:relative;  
+    display:none;
+    float:left;
+    margin: 4px 0 0 5px;
+    padding:5px;
+    border: 1px solid #FFD700; 
+    background-color: #FFFFDD;  
+    font: normal 12px Verdana, Arial, Helvetica, sans-serif; 
+    color:#5A5655;         
+    -moz-border-radius  : 5px;
+    -webkit-border-radius: 5px;
+    z-index:999;
+    min-width:200px;  
+  }
+  .form_wizard .msgBox .content {
+    font: normal 12px Verdana,Arial,Helvetica,sans-serif;
+    padding: 0px;
+    float:left;
+  }
+  .form_wizard .msgBox .close {
+    border: 1px solid #CCC;
+    border-radius: 3px;
+    color: #CCC;
+    display: block;
+    float: right;
+    margin: 0 0 0 5px;
+    outline-style: none;
+    padding: 0 2px 0 2px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+  }
+  .form_wizard .msgBox .close:hover{
+    color: #EA8511;
+    border: 1px solid #EA8511;  
+  }
+
+  

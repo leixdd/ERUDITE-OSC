@@ -1,0 +1,154 @@
+<section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- User Info -->
+            <div class="user-info" *ngIf="user">
+                <div class="image">
+                    <img src="../assets/uploads/avatars/{{ picture }}" width="48" height="48" alt="User"  />
+                </div>
+                <div class="info-container">
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user['firstname'] }}, {{ user['lastname'] }}</div>
+                    <div class="email">{{ email }}</div>
+                </div>
+            </div>
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+
+                    <li class="header" *ngIf="SA">ADMINISTRATIVE NAVIGATION</li>
+
+                    <li [routerLinkActive]="['active']" *ngIf="SA">
+                        <a  [routerLink]="['/admin']" >
+                            <i class="fa fa-dashboard" style="font-size: 20pt">&nbsp;</i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="header">MAIN NAVIGATION</li>
+
+                    <li class="active">
+                        <a  [routerLink]="['/']">
+                            <i class="fa fa-home" style="font-size: 20pt">&nbsp;</i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                    <li [routerLinkActive]="['active']">
+                        <a  [routerLink]="['/profile']" >
+                            <i class="fa fa-user" style="font-size: 20pt">&nbsp;</i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+
+                    <li [routerLinkActive]="['active']">
+                        <a  [routerLink]="['/settings']" >
+                            <i class="mdi mdi-settings" style="font-size: 20pt">&nbsp;</i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a  (click) = "logout()">
+                            <i class="mdi mdi-logout" style="font-size: 20pt">&nbsp;</i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+
+                    <li class="header">PROJECT NAVIGATION</li>
+
+                    <li [routerLinkActive]="['active']">
+                        <a  [routerLink]="['/projects']" >
+                            <i class="fa fa-coffee" style="font-size: 20pt">&nbsp;</i>
+                            <span>Projects</span>
+                        </a>
+                    </li>
+                    <li [routerLinkActive]="['active']">
+                        <a  [routerLink]="['/project/init']" >
+                            <i class="material-icons" style="font-size: 20pt">create</i>&nbsp;
+                            <span>Start Collaboration</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                  
+                </div>
+                <div class="version">
+                    <b>
+                        Version: </b> 1.0.5
+                </div>
+            </div>
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+
+        <!-- Right Sidebar -->
+        <aside id="rightsidebar" class="right-sidebar">
+            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                <li role="presentation" class="active"><a href="#chat" data-toggle="chat">CHAT</a></li>
+                <li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active in active" id="chat">
+
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="settings">
+                    <div class="demo-settings">
+                        <p>GENERAL SETTINGS</p>
+                        <ul class="setting-list">
+                            <li>
+                                <span>Report Panel Usage</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Email Redirect</span>
+                                <div class="switch">
+                                    <label><input type="checkbox"><span class="lever"></span></label>
+                                </div>
+                            </li>
+                        </ul>
+                        <p>SYSTEM SETTINGS</p>
+                        <ul class="setting-list">
+                            <li>
+                                <span>Notifications</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Auto Updates</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                        </ul>
+                        <p>ACCOUNT SETTINGS</p>
+                        <ul class="setting-list">
+                            <li>
+                                <span>Offline</span>
+                                <div class="switch">
+                                    <label><input type="checkbox"><span class="lever"></span></label>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Location Permission</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- #END# Right Sidebar -->
+    </section>

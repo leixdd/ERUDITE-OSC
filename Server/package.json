@@ -1,0 +1,30 @@
+{
+  "name": "erudite",
+  "version": "1.0.0",
+  "description": "Online Collaborative Website With Machine Learning",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "ger": "0.0.99",
+    "jsonwebtoken": "*",
+    "mongoose": "^4.13.9",
+    "mongoose-sequence": "^4.0.1",
+    "multer": "^1.3.0",
+    "nlp_compromise": "^6.5.5",
+    "passport": "*",
+    "passport-jwt": "*",
+    "socket.io": "^2.0.4"
+  },
+  "author": "Ariel Lecias",
+  "license": "ISC",
+  "devDependencies": {
+    "@angular/core": "^5.2.0"
+  }
+}

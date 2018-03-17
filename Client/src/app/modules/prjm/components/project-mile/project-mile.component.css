@@ -1,0 +1,49 @@
+.card-container-navyBlue{
+    background-color: #034f84;
+    color: white;
+    border-radius: 0px;
+}
+
+.card-body-navyBlue{
+    background-color: white;
+    color: #034f84;
+}
+
+.card-container-green{
+    background-color:  #34A853;
+    color: white;
+    border-radius: 0px;
+}
+
+.card-body-green{
+    background-color: white;
+    color: #34A853;
+}
+
+.completed{
+    background-color:  #34A853;
+    color: white;
+}
+
+.card-container-red{
+    background-color:  #EA4335;
+    color: white;
+}
+
+.card-body-red{
+    background-color: white;
+    color: #EA4335;
+}
+
+
+
+.card-container-violet{
+    background-color:  #7B0099;
+    color: white;
+}
+
+.card-body-violet{
+    background-color: white;
+    color: #7B0099;
+}
+

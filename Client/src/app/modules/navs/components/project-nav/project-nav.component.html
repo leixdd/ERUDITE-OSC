@@ -1,0 +1,23 @@
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+            <a href="javascript:void(0);" class="bars"></a>
+            <a class="navbar-brand" [routerLink]="['/']">Erudite</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a [routerLink]="['/project', Query]"><span class="fa fa-dashboard">&nbsp;</span>Analytics</a></li>
+                <li><a [routerLink]="['/project/milestones', Query]"><span class="fa fa-tasks">&nbsp;</span>Milestones</a></li>
+                <li><a [routerLink]="['/project/schedules', Query]"><span class="fa fa-calendar">&nbsp;</span>Schedules</a></li>
+                <li><a [routerLink]="['/project/team', Query]"><span class="fa fa-users">&nbsp;</span>Team</a></li>
+              </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+            
+                <!-- #END# Tasks -->
+                <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="fa fa-bars"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
